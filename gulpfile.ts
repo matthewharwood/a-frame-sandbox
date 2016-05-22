@@ -8,6 +8,7 @@ let gulp = require('gulp');
 let del = require('del');
 let ts = require('gulp-typescript');
 let browserSync = require('browser-sync').create();
+let reload = browserSync.reload;
 
 @Gulpclass()
 export class Gulpfile {
@@ -31,12 +32,11 @@ export class Gulpfile {
       proxy: 'http://localhost:1337',
       files: [`${this.dist}/client/**/*.{html,css,js}`],
       browser: 'google chrome',
-      reloadDelay: 1000,
       port: 7002
     });
   }
 
-  @Task('copy-source-files') // you can specify custom task name if you need
+  @Task('copy-source-files')
   copySourceFiles() {
     return gulp.src([`${this.src}**/*.{png,gif,jpg,html}`])
         .pipe(gulp.dest(`${this.dist}`));
@@ -68,7 +68,7 @@ export class Gulpfile {
         .pipe(gulp.dest(this.dist));
   }
 
-  @SequenceTask('run') // this special annotation using "run-sequence" module to run returned tasks in sequence
+  @SequenceTask('run')
   build() {
     return ['copy-source-files', 'tsd'];
   }
