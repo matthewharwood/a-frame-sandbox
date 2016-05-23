@@ -1,0 +1,44 @@
+doctype html
+html(lang="en")
+  head
+    title= pageTitle
+    script(src='./node_modules/aframe/dist/aframe.js')
+
+  body
+  - var gridSystem = [-5,-4,-3,-2,-1, 0, 1, 2, 3, 4, 5];
+    a-scene
+      each x in gridSystem
+        each y in gridSystem
+          a-box(color='#cccccc'
+                width='2'
+                height='2'
+                depth='2'
+                position=`${(x + x) - 2} ${(y + y) - 2} -11`
+                rotation='0 0 0'
+          )
+            //a-event(name='mouseenter'
+            //        depth='1'
+            //)
+            //
+            //a-event(name='mouseleave'
+            //        color='2'
+            //)
+
+      a-sphere(position = "-12 8 -11" radius="1.25" color="#EF2D5E")
+        a-animation(attribute="position"
+                    dur="1000"
+                    fill="forwards"
+                    to="-12 8 -11"
+                    repeat="indefinatly"
+        )
+      a-light(type='point'
+              color='#AAA'
+              position='0 5 0'
+      )
+
+      a-sky(color='#73F7DD')
+
+      a-camera(position='0 1.8 0')
+        a-cursor(color='#2E3A87')
+
+    script(src='./app.js')

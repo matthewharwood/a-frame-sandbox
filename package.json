@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "boot": "npm i typings tsd typescript@next gulp-cli.build browser-sync --g && tsd install && npm i",
+    "boot": "npm i typings tsd typescript@next gulp gulp-cli.build browser-sync --g && tsd install && npm i",
     "start": "gulp run && concurrently \"node dist/server/app.js\" \"gulp sync\" \"gulp file-source-watcher\""
   },
   "repository": {

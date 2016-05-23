@@ -9,15 +9,18 @@ let del = require('del');
 let ts = require('gulp-typescript');
 let browserSync = require('browser-sync').create();
 let reload = browserSync.reload;
+let pug = require('gulp-pug');
 
 @Gulpclass()
 export class Gulpfile {
   private dist: string;
   private src: string;
+  private indexDist: string;
 
   constructor(){
     this.dist = './dist/';
-    this.src = './src/'
+    this.src = './src/';
+    this.indexDist = './dist/client/app/'
   }
 
   @Task()
@@ -44,10 +47,18 @@ export class Gulpfile {
 
   @Task('file-source-watcher')
   watcher() {
+    gulp.watch(`${this.src}/**/*.{png,gif,jpg,html,pug,js,ts}`, ['run']);
+  }
 
-    gulp.watch(`${this.src}/**/*.{png,gif,jpg,html}`, ['run']);
-    //gulp.watch(`${this.src}/**/*.scss`, ['styles']);
+  @Task('pug')
+  pug() {
+    var options = {
+      pretty: true
+    };
 
+    return gulp.src(`${this.src}client/app/index.pug`)
+        .pipe(pug(options))
+        .pipe(gulp.dest(this.indexDist));
   }
 
   @Task('tsd')
@@ -70,7 +81,7 @@ export class Gulpfile {
 
   @SequenceTask('run')
   build() {
-    return ['copy-source-files', 'tsd'];
+    return ['copy-source-files', 'pug', 'tsd'];
   }
 
 }
