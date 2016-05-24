@@ -31,7 +31,6 @@ export class Gulpfile {
   @Task('sync')
   sync() {
     browserSync.init(null, {
-      logLevel: 'debug',
       proxy: 'http://localhost:1337',
       files: [`${this.dist}/client/**/*.{html,css,js}`],
       browser: 'google chrome',
@@ -41,13 +40,13 @@ export class Gulpfile {
 
   @Task('copy-source-files')
   copySourceFiles() {
-    return gulp.src([`${this.src}**/*.{png,gif,jpg,html}`])
+    return gulp.src([`${this.src}**/*.{png,gif,jpg,html,css}`])
         .pipe(gulp.dest(`${this.dist}`));
   }
 
   @Task('file-source-watcher')
   watcher() {
-    gulp.watch(`${this.src}/**/*.{png,gif,jpg,html,pug,js,ts}`, ['run']);
+    gulp.watch(`${this.src}/**/*.{png,gif,jpg,html,pug,js,ts,css}`, ['run']);
   }
 
   @Task('pug')

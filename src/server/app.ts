@@ -14,6 +14,7 @@ let app = express();
 
 app.use(express.static('dist/client/app'));
 app.use('/images', express.static(path.join(__dirname, '../client/_assets/images')));
+app.use('/css', express.static(path.join(__dirname, '../client/_assets/css')));
 app.use('/node_modules', express.static(path.join(__dirname, '../../node_modules')));
 
 
